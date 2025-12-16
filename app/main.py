@@ -1,6 +1,5 @@
 from typing import Any, Hashable
 from collections.abc import Iterable, Mapping
-from app.point import Point
 
 
 class Node:
