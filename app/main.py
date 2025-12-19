@@ -54,10 +54,11 @@ class Dictionary:
     def __delitem__(self, key: Hashable) -> None:
         index = hash(key) % self.CAPACITY
         start_index = index
+        h = hash(key)
         while self.node_list[index] is not None:
             node = self.node_list[index]
             if node is not None and node != self._DELETED:
-                if node.key_hash == hash(key) and node.key == key:
+                if node.key_hash == h and node.key == key:
                     self.node_list[index] = self._DELETED
                     self.size -= 1
                     return
@@ -113,13 +114,13 @@ class Dictionary:
     def pop(self, key: Hashable, default: Any = _MISSING) -> Any:
         index = hash(key) % self.CAPACITY
         start_index = index
+        h = hash(key)
         while self.node_list[index] is not None:
-            idx = index % self.CAPACITY
-            node = self.node_list[idx]
+            node = self.node_list[index]
             if node is not None and node != self._DELETED:
-                if node.key_hash == hash(key) and node.key == key:
+                if node.key_hash == h and node.key == key:
                     value = node.value
-                    self.node_list[idx] = self._DELETED
+                    self.node_list[index] = self._DELETED
                     self.size -= 1
                     return value
             index = (index + 1) % self.CAPACITY
